@@ -2,25 +2,33 @@ import { Role } from "RoleTypes";
 
 const harvester: Role = {
   run: (creep) => {
-    if (creep.carry.energy < creep.carryCapacity)
-    {
+    if (creep.store.getUsedCapacity() === 0) creep.memory.transferring = false;
+    if (creep.store.energy < creep.store.getCapacity() && !creep.memory.transferring) {
       const sources = creep.room.find(FIND_SOURCES);
-      if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) { creep.moveTo(sources[0]) };
+      if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) creep.moveTo(sources[0]);
+      if (creep.harvest(sources[0]) === OK) {
+        if (!creep.memory.harvesting) creep.memory.harvesting = true
+      }
     }
-    else
-    {
+    else {
       const targets = creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
-          return (structure.structureType === STRUCTURE_EXTENSION ||
+          return (
+            structure.structureType === STRUCTURE_EXTENSION ||
             structure.structureType === STRUCTURE_SPAWN ||
-            structure.structureType === STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+            structure.structureType === STRUCTURE_TOWER
+          ) && structure.energy < structure.energyCapacity;
         }
       });
 
-      if (targets.length > 0)
-      {
-        if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) { creep.moveTo(targets[0]) };
+      if (creep.memory.harvesting) creep.memory.harvesting = false;
+
+      if (targets.length > 0 && creep.store.getUsedCapacity() && !creep.memory.harvesting) {
+        creep.memory.transferring = true;
+        if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) creep.moveTo(targets[0]);
+        if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_FULL) creep.moveTo(targets[0]);
       }
+
     }
   }
 };

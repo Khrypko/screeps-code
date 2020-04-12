@@ -1,5 +1,6 @@
-import { RoleName } from "RoleTypes";
+import {RoleName} from "RoleTypes";
 import settings from '../settings'
+
 const {spawn} = settings;
 
 interface SpawnController {
@@ -18,7 +19,6 @@ const spawnController: SpawnController = {
 
   spawn: (role, creepsAmount, bodyParts) => {
     const creeps = _.filter(Game.creeps, (creep) => creep.memory.role === role);
-
     if (creeps.length < creepsAmount) {
       const name = role + Game.time;
       Game.spawns[spawn].spawnCreep(bodyParts, name, {memory: {role}});

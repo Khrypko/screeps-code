@@ -17,6 +17,7 @@
       "allow-pascal-case",
       "allow-leading-underscore"
     ],
-    "interface-over-type-literal": false
+    "interface-over-type-literal": false,
+    "curly": false
   }
 }

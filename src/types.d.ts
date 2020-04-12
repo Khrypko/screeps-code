@@ -13,6 +13,8 @@ interface CreepMemory {
   role: Roles.RoleName;
   building?: boolean;
   upgrading?: boolean;
+  harvesting?: boolean;
+  transferring?: boolean;
 }
 
 interface Memory {
