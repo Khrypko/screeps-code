@@ -18,6 +18,7 @@ const spawnController: SpawnController = {
   },
 
   spawn: (role, creepsAmount, bodyParts, otherSource = false) => {
+    if (role === RoleName.BUILDER && !Game.spawns[spawn].room.find(FIND_CONSTRUCTION_SITES)) return;
     const creeps = _.filter(Game.creeps, (creep) => creep.memory.role === role);
     if (creeps.length < creepsAmount) {
       const name = role + Game.time;

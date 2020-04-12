@@ -18,7 +18,7 @@ export default {
     */
     const myRoomName = "W46S22";
     const hostiles = Game.rooms[myRoomName].find(FIND_HOSTILE_CREEPS);
-    const towers: Array<FindTypes[108]> = Game.rooms[myRoomName].find(FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
+    const towers: any = Game.rooms[myRoomName].find(FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
 
 
     if (hostiles.length > 0) {
@@ -38,10 +38,15 @@ export default {
       }
 
       for (const tower of (towers as StructureTower[])){
-        if(tower.energy > (tower.energyCapacity * 0.8)){
-          const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART});
+        if(tower.energy > (tower.energyCapacity * 0.5)){
+          const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax});
           if(closestDamagedStructure) {
-            tower.repair(closestDamagedStructure);
+            /*&& s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART*/
+            if (closestDamagedStructure.structureType === STRUCTURE_WALL || closestDamagedStructure.structureType === STRUCTURE_RAMPART) {
+              if (closestDamagedStructure.hits < closestDamagedStructure.hitsMax * 0.3) tower.repair(closestDamagedStructure)
+            } else {
+              tower.repair(closestDamagedStructure);
+            }
             console.log("The tower is repairing buildings.");
           }
         }

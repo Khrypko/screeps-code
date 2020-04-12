@@ -14,7 +14,7 @@ const loop = ErrorMapper.wrapLoop(
     spawnController.spawn(RoleName.OTHER_HARVESTER, 1, [WORK, WORK, WORK, CARRY, CARRY, MOVE], true);
     spawnController.spawn(RoleName.UPGRADER, 2, [WORK, WORK, WORK, WORK, CARRY, MOVE]);
     spawnController.spawn(RoleName.BUILDER, 1, [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]);
-    tower.tick()
+    tower.tick();
     for(const name in Game.creeps) {
       const creep = Game.creeps[name];
       const creepRole = creep.memory.role;
