@@ -39,19 +39,21 @@ export default {
 
       for (const tower of (towers as StructureTower[])){
         if(tower.energy > (tower.energyCapacity * 0.5)){
-          const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {filter: (s) => s.hits < s.hitsMax});
-          if(closestDamagedStructure) {
-            /*&& s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART*/
-            if (closestDamagedStructure.structureType === STRUCTURE_WALL || closestDamagedStructure.structureType === STRUCTURE_RAMPART) {
-              if (closestDamagedStructure.hits < closestDamagedStructure.hitsMax * 0.3) tower.repair(closestDamagedStructure)
-            } else {
-              tower.repair(closestDamagedStructure);
-            }
-            console.log("The tower is repairing buildings.");
+
+          const damagedDefences = tower.room
+            .find(FIND_STRUCTURES)
+            .filter(s => s.structureType === STRUCTURE_WALL || s.structureType === STRUCTURE_RAMPART)
+            .sort((first, second) => first.hits - second.hits);
+
+          const damagedStructures = tower.room
+            .find(FIND_MY_STRUCTURES)
+            .sort((first, second) => first.hits - second.hits);
+
+          if (damagedStructures[0]) {tower.repair(damagedStructures[0])}
+          if (damagedDefences[0]) {tower.repair(damagedDefences[0])}
           }
         }
       }
 
     }
-  }
 };
