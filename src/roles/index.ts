@@ -6,7 +6,8 @@ import upgrader from './upgrader';
 const roles: Record<RoleName, Role> = {
   [RoleName.BUILDER]: builder,
   [RoleName.HARVESTER]: harvester,
-  [RoleName.UPGRADER]: upgrader
+  [RoleName.UPGRADER]: upgrader,
+  [RoleName.OTHER_HARVESTER]: harvester
 };
 
 export default roles;

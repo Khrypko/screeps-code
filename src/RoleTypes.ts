@@ -5,5 +5,6 @@ export interface Role {
 export enum RoleName {
   HARVESTER = "HARVESTER",
   BUILDER = "BUILDER",
-  UPGRADER = "UPGRADER"
+  UPGRADER = "UPGRADER",
+  OTHER_HARVESTER = "OTHER_HARVESTER"
 }

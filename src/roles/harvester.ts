@@ -4,9 +4,9 @@ const harvester: Role = {
   run: (creep) => {
     if (creep.store.getUsedCapacity() === 0) creep.memory.transferring = false;
     if (creep.store.energy < creep.store.getCapacity() && !creep.memory.transferring) {
-      const sources = creep.room.find(FIND_SOURCES);
-      if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) creep.moveTo(sources[0]);
-      if (creep.harvest(sources[0]) === OK) {
+      const source = creep.room.find(FIND_SOURCES)[creep.memory.otherSource ? 1 : 0];
+      if (creep.harvest(source) === ERR_NOT_IN_RANGE) creep.moveTo(source);
+      if (creep.harvest(source) === OK) {
         if (!creep.memory.harvesting) creep.memory.harvesting = true
       }
     }

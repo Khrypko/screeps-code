@@ -5,7 +5,8 @@ declare namespace Roles {
   enum RoleName {
     HARVESTER = "HARVESTER",
     BUILDER = "BUILDER",
-    UPGRADER = "UPGRADER"
+    UPGRADER = "UPGRADER",
+    OTHER_HARVESTER = "OTHER_HARVESTER"
   }
 }
 
@@ -15,6 +16,7 @@ interface CreepMemory {
   upgrading?: boolean;
   harvesting?: boolean;
   transferring?: boolean;
+  otherSource?: boolean;
 }
 
 interface Memory {
