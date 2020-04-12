@@ -1,6 +1,4 @@
 import { Role } from "RoleTypes";
-import settings from "../settings";
-const {creepsCount} = settings;
 
 const builder: Role = {
   run: (creep) => {
