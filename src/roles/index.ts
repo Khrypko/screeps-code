@@ -3,11 +3,7 @@ import builder from './builder'
 import harvester from './harvester'
 import upgrader from './upgrader'
 
-type Roles = {
-  [key in RoleName]?: Role
-}
-
-const roles: Roles = {
+const roles: Record<RoleName, Role> = {
   [RoleName.BUILDER]: builder,
   [RoleName.HARVESTER]: harvester,
   [RoleName.UPGRADER]: upgrader

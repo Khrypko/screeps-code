@@ -12,11 +12,11 @@ const loop = ErrorMapper.wrapLoop(
     spawnController.clearDead();
     spawnController.spawn(RoleName.HARVESTER, 5, [WORK, CARRY, MOVE, MOVE]);
     spawnController.spawn(RoleName.UPGRADER, 3, [WORK, WORK, CARRY, MOVE]);
-    spawnController.spawn(RoleName.BUILDER, 1, [WORK, WORK, CARRY, MOVE]);
+    spawnController.spawn(RoleName.BUILDER, 1, [WORK, WORK, CARRY, CARRY, MOVE]);
     for(const name in Game.creeps) {
       const creep = Game.creeps[name];
       const creepRole = creep.memory.role;
-      (roles[creepRole] as any).run(creep)
+      roles[creepRole].run(creep)
     }
   }
 );
