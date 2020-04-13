@@ -1,3 +1,4 @@
+import {Role} from 'RoleTypes'
 
 const builder: Role = {
   run: (creep) => {

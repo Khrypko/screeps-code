@@ -3,6 +3,7 @@ import roles from 'roles/index';
 import { ErrorMapper } from "utils/ErrorMapper";
 import tower from "./buildings/tower";
 const { spawnController } = controllers;
+import {RoleName} from 'RoleTypes'
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 
@@ -17,7 +18,7 @@ const loop = ErrorMapper.wrapLoop(
     for(const name in Game.creeps) {
       const creep = Game.creeps[name];
       const creepRole = creep.memory.role;
-      roles[creepRole].run(creep)
+      (roles as any)[creepRole].run(creep)
     }
   }
 );

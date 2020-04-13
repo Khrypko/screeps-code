@@ -1,5 +1,5 @@
+import {RoleName} from 'RoleTypes'
 import settings from '../settings'
-
 const {spawn} = settings;
 
 interface SpawnController {

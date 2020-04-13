@@ -1,7 +1,10 @@
+import {Role, RoleName} from 'RoleTypes'
 import builder from './builder';
 import harvester from './harvester';
 import transporter from './transporter'
 import upgrader from './upgrader';
+
+
 
 const roles: Record<RoleName, Role> = {
   [RoleName.BUILDER]: builder,

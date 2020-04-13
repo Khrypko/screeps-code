@@ -1,3 +1,5 @@
+import {Role} from 'RoleTypes'
+
 const upgrader: Role = {
 
   run: (creep) => {
