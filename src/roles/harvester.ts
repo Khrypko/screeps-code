@@ -1,4 +1,3 @@
-import { Role } from "RoleTypes";
 
 const harvester: Role = {
   run: (creep) => {

@@ -1,8 +1,7 @@
 import * as controllers from 'controllers';
-import roles from 'roles';
+import roles from 'roles/index';
 import { ErrorMapper } from "utils/ErrorMapper";
 import tower from "./buildings/tower";
-import {RoleName} from './RoleTypes'
 const { spawnController } = controllers;
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
