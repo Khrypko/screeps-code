@@ -17,6 +17,7 @@ const transporter: Role = {
                             structure.structureType === STRUCTURE_TOWER) &&
                             structure.store.getFreeCapacity("energy") !== 0
       )
+      .sort(target => target.structureType === STRUCTURE_SPAWN ? 1 : -1)
       .sort(target => target.structureType === STRUCTURE_TOWER ? 1 : -1);
 
 
@@ -26,11 +27,9 @@ const transporter: Role = {
       // если есть контейнеры в которых есть ресурсы - пойти и собрать
       if (containers.length) {
         const amountOfResourcesToWithdraw = containers[0].store.energy < creep.store.getFreeCapacity() ? containers[0].store.energy : creep.store.getFreeCapacity();
-        console.log("amountOfResourcesToWithdraw: ", amountOfResourcesToWithdraw);
-        const withdrawReturnCode = creep.withdraw(containers[0], "energy", 100);
+        const withdrawReturnCode = creep.withdraw(containers[0], "energy", amountOfResourcesToWithdraw);
         if (withdrawReturnCode === ERR_NOT_IN_RANGE) creep.moveTo(containers[0]);
-        if (withdrawReturnCode === OK) creep.memory.harvesting = true
-        console.log(withdrawReturnCode);
+        if (withdrawReturnCode === OK) creep.memory.harvesting = true;
       }
 
     } else {
