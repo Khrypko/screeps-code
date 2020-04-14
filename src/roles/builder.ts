@@ -23,7 +23,7 @@ const builder: Role = {
         }
       }
     } else {
-      const allCreepsIsBuilt = Object.keys(Memory.creeps).length === 9; // TODO: hardcoded
+      const allCreepsIsBuilt = Object.keys(Memory.creeps).length === 8; // TODO: hardcoded
       if (allCreepsIsBuilt) {
         const spawns = creep.room.find(FIND_MY_SPAWNS);
         if(creep.withdraw(spawns[0], "energy") === ERR_NOT_IN_RANGE) {

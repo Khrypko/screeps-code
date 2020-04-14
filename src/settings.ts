@@ -16,6 +16,7 @@ class CreepsCount {
 
 export default {
   CreepsCount,
+  myRoomName: "W46S22",
   spawn: "Spawn1"
 }
 

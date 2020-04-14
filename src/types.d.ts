@@ -21,7 +21,6 @@ interface CreepMemory {
   upgrading?: boolean;
   harvesting?: boolean;
   transferring?: boolean;
-  otherSource?: boolean;
 }
 
 interface Memory {

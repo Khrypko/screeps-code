@@ -1,24 +1,10 @@
 import {isSpotted} from "../utils/utilityFunctions";
+import settings from "../settings";
+
+const {myRoomName} = settings;
 
 export default {
-
   tick: () => {
-
-    /*
-
-    ORIGINAL TOWER CODE
-
-    //TOWER CODE
-    var towers = Game.rooms.W61S27.find(FIND_STRUCTURES, {filter: (s) => s.structureType == STRUCTURE_TOWER});
-    for (let tower of towers) {
-        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if (target != undefined) {
-            tower.attack(target);
-        }
-    }
-
-    */
-    const myRoomName = "W46S22";
     const hostiles = Game.rooms[myRoomName].find(FIND_HOSTILE_CREEPS);
     const towers: any = Game.rooms[myRoomName].find(FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
 

@@ -4,22 +4,18 @@ const harvester: Role = {
   run: (creep) => {
     if (creep.store.getUsedCapacity() === 0) creep.memory.transferring = false;
     if (creep.store.energy < creep.store.getCapacity() && !creep.memory.transferring) {
-      const source = creep.room.find(FIND_SOURCES)[creep.memory.otherSource ? 1 : 0];
+      const source = creep.room.find(FIND_SOURCES)[0];
       if (creep.harvest(source) === ERR_NOT_IN_RANGE) creep.moveTo(source);
       if (creep.harvest(source) === OK) {
         if (!creep.memory.harvesting) creep.memory.harvesting = true
       }
     }
     else {
-      const targets = creep.room.find(FIND_STRUCTURES, {
-        filter: (structure) => {
-          return (
-            structure.structureType === STRUCTURE_EXTENSION ||
-            structure.structureType === STRUCTURE_SPAWN ||
-            structure.structureType === STRUCTURE_TOWER
-          ) && structure.energy < structure.energyCapacity;
-        }
-      });
+      const targets = creep.room
+        .find(FIND_STRUCTURES)
+        .filter(structure => structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity() !== 0);
+
+      console.log(targets);
 
       if (creep.memory.harvesting) creep.memory.harvesting = false;
 
