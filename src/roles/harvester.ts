@@ -15,8 +15,6 @@ const harvester: Role = {
         .find(FIND_STRUCTURES)
         .filter(structure => structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity() !== 0);
 
-      console.log(targets);
-
       if (creep.memory.harvesting) creep.memory.harvesting = false;
 
       if (targets.length > 0 && creep.store.getUsedCapacity() && !creep.memory.harvesting) {
