@@ -8,7 +8,6 @@ export default {
     const hostiles = Game.rooms[myRoomName].find(FIND_HOSTILE_CREEPS);
     const towers: any = Game.rooms[myRoomName].find(FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
 
-
     if (isSpotted(hostiles)) {
       (towers as StructureTower[]).forEach(tower => tower.attack(hostiles[0]));
       console.log("ALERT!!!! WE ARE UNDER ATTACK!!!!!");
@@ -31,7 +30,10 @@ export default {
               s.structureType === STRUCTURE_WALL ||
               s.structureType === STRUCTURE_RAMPART
             )
+            .filter(s => s.hits < 90000)
             .sort((first, second) => first.hits - second.hits);
+
+          console.log("structuresWhere hits < 90000: ", damagedDefences.map(s => s.hits));
 
           const damagedStructures = structures
             .filter(s =>

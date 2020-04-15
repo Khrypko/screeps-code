@@ -3,6 +3,10 @@ import {Role} from 'RoleTypes'
 const transporter: Role = {
   run: (creep) => {
 
+    // ресурсы на полу
+    const droppedResources = creep.room
+      .find(FIND_DROPPED_RESOURCES);
+
     // контейнеры
     const containers = creep.room
       .find(FIND_STRUCTURES)
@@ -12,18 +16,27 @@ const transporter: Role = {
     // хранилища єнергии
     const energyStorages = creep.room
       .find(FIND_STRUCTURES)
-      .filter((structure) => (structure.structureType === STRUCTURE_EXTENSION ||
+      .filter((structure) => ((structure.structureType === STRUCTURE_EXTENSION ||
                             structure.structureType === STRUCTURE_SPAWN ||
-                            structure.structureType === STRUCTURE_TOWER) &&
-                            structure.store.getFreeCapacity("energy") !== 0
+                            structure.structureType === STRUCTURE_TOWER && structure.store.energy < 600) &&
+                            structure.store.getFreeCapacity("energy") !== 0) || structure.structureType === STRUCTURE_STORAGE
       )
+      .sort(target => target.structureType === STRUCTURE_EXTENSION ? 1 : -1)
       .sort(target => target.structureType === STRUCTURE_SPAWN ? 1 : -1)
-      .sort(target => target.structureType === STRUCTURE_TOWER ? 1 : -1);
-
+      .sort(target => target.structureType === STRUCTURE_TOWER ? 1 : -1)
+      .sort(target => target.structureType === STRUCTURE_STORAGE ? 1 : -1);
 
     if (creep.store.getUsedCapacity() === 0) creep.memory.transferring = false;
 
     if (creep.store.energy < creep.store.getCapacity() && !creep.memory.transferring) {
+      // если есть ресурсы на полу - пойти и собрать
+      if (droppedResources.length) {
+        const pickupReturnCode = creep.pickup(droppedResources[0]);
+        if (pickupReturnCode === ERR_NOT_IN_RANGE) creep.moveTo(droppedResources[0]);
+        if (pickupReturnCode === ERR_FULL) creep.moveTo(droppedResources[0]);
+        return
+      }
+
       // если есть контейнеры в которых есть ресурсы - пойти и собрать
       if (containers.length) {
         const amountOfResourcesToWithdraw = containers[0].store.energy < creep.store.getFreeCapacity() ? containers[0].store.energy : creep.store.getFreeCapacity();
