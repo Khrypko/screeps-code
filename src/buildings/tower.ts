@@ -1,5 +1,5 @@
-import {isSpotted} from "../utils/utilityFunctions";
 import settings from "../settings";
+import {isSpotted} from "../utils/utilityFunctions";
 
 const {myRoomName} = settings;
 
@@ -10,14 +10,12 @@ export default {
 
     if (isSpotted(hostiles)) {
       (towers as StructureTower[]).forEach(tower => tower.attack(hostiles[0]));
-      console.log("ALERT!!!! WE ARE UNDER ATTACK!!!!!");
     } else {
       for (const name in Game.creeps) {
         // get the creep object
         const creep = Game.creeps[name];
         if (creep.hits < creep.hitsMax) {
           (towers as StructureTower[]).forEach(tower => tower.heal(creep));
-          console.log("Tower is healing Creeps.");
         }
       }
 
@@ -30,10 +28,8 @@ export default {
               s.structureType === STRUCTURE_WALL ||
               s.structureType === STRUCTURE_RAMPART
             )
-            .filter(s => s.hits < 90000)
+            .filter(s => s.hits < 1000000)
             .sort((first, second) => first.hits - second.hits);
-
-          console.log("structuresWhere hits < 90000: ", damagedDefences.map(s => s.hits));
 
           const damagedStructures = structures
             .filter(s =>
